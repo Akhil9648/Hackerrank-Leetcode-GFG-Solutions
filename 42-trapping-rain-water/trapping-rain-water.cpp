@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int trap(vector<int>& height) {
         int n=height.size();
@@ -17,6 +17,33 @@ public:
         for(int i=0;i<n;i++){
             int a=min(lmax[i],rmax[i])-height[i];
             count+=(a>0)?a:0; 
+        }
+        return count;
+    }
+};
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        vector<int>maxi(n);
+        int lmax=0,rmax=0;
+        int i=0,j=n-1;
+        while(i<=j){
+            if(height[i]<height[j]){
+                lmax=max(lmax,height[i]);
+                maxi[i]=lmax;
+                i++;
+            }
+            else{
+                rmax=max(rmax,height[j]);
+                maxi[j]=rmax;
+                j--;
+            }
+        }
+        int count=0;
+        for(int i=0;i<n;i++){
+            int a=maxi[i]-height[i];
+            count+=(a>0)?a:0;
         }
         return count;
     }
