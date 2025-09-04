@@ -12,6 +12,7 @@ public:
             st.pop();
             k--;
         }
+        if(st.empty()) return "0";
         string ans="";
         while(!st.empty()){
             ans.push_back(st.top());
