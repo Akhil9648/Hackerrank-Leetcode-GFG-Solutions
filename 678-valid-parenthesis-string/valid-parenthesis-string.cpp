@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     bool solve(int i,string s,int count,vector<vector<int>>& dp){
         if(count<0) return false;
@@ -11,5 +11,28 @@ public:
     bool checkValidString(string s) {
         vector<vector<int>>dp(s.size()+1,vector<int>(s.size()+1,-1));
         return solve(0,s,0,dp);
+    }
+};
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int min=0,max=0;
+        for(char c :s){
+            if(c=='('){
+                min+=1;
+                max+=1;
+            }
+            if(c==')'){
+                min-=1;
+                max-=1;
+            }
+            if(c=='*'){
+                min-=1;
+                max+=1;
+            }
+            if(min<0) min=0;
+            if(max<0) return false;
+        }
+        return min==0;
     }
 };
