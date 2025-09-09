@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
 int MOD=1e9+7;
     int solve(int n,int delay,int forget,vector<int>& dp){
@@ -23,5 +23,30 @@ int MOD=1e9+7;
             }
         }
         return total;
+    }
+};
+class Solution {
+public:
+int MOD=1e9+7;
+    int peopleAwareOfSecret(int n, int delay, int forget) {
+        int total=0;
+        vector<int>dp(n+1,-1);
+        dp[1]=1;
+    for(int j=2;j<=n;j++){
+        long long count=0;
+        for(int i=j-forget+1;i<=j-delay;i++){
+            if(i>0){
+            count+=dp[i];
+            count%=MOD;
+            }
+        }
+        dp[j]=count;
+    }
+    int result=0;
+    for(int i=n-forget+1;i<=n;i++){
+        result+=dp[i];
+        result%=MOD;
+    }
+        return result;
     }
 };
