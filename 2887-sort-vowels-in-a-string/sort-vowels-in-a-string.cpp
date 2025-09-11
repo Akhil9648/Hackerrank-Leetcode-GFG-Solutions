@@ -2,16 +2,8 @@ class Solution {
 public:
     string sortVowels(string s) {
         unordered_set<char>st;
-        st.insert('A'); 
-        st.insert('E'); 
-        st.insert('I'); 
-        st.insert('O'); 
-        st.insert('U');
-        st.insert('a'); 
-        st.insert('e'); 
-        st.insert('i'); 
-        st.insert('o'); 
-        st.insert('u');
+        st.insert('A'); st.insert('E'); st.insert('I'); st.insert('O'); st.insert('U');
+        st.insert('a'); st.insert('e'); st.insert('i'); st.insert('o'); st.insert('u');
         vector<char>str;
         int n=s.size();
         for(int i=0;i<n;i++){
