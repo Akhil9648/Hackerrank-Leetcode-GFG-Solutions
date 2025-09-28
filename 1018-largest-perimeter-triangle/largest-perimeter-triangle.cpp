@@ -29,7 +29,7 @@ public:
         int i=0;
         while(i<n-2){
             int a=nums[i],b=nums[i+1],c=nums[i+2];
-            if((a+b>c) && (b+c>a) && (a+c>b)){
+            if(b+c>a){
                 ans=a+b+c;
                 break;
             }
