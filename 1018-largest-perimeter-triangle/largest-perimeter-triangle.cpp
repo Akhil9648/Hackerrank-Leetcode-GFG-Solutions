@@ -1,3 +1,4 @@
+// BruteForce O(n^3)
 class Solution1 {
 public:
     int largestPerimeter(vector<int>& nums) {
@@ -18,7 +19,8 @@ public:
         return ans;
     }
 };
-class Solution {
+// Optimal O(nlogn)
+class Solution{
 public:
     int largestPerimeter(vector<int>& nums) {
         int ans=0;
