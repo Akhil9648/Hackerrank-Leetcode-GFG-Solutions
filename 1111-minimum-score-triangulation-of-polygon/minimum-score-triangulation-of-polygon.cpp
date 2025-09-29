@@ -12,7 +12,7 @@ public:
     }
     int minScoreTriangulation(vector<int>& values) {
         int n=values.size();
-        vector<vector<int>>dp(n,vector<int>(n,-1));
+        vector<vector<int>>dp(52,vector<int>(52,-1));
         return solve(values,0,n-1,dp);
     }
 };
