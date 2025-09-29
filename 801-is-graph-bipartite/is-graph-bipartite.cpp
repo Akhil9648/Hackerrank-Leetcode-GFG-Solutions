@@ -1,3 +1,4 @@
+// BFS
 class Solution1 {
 public:
     bool check(int i,int n,vector<vector<int>>& graph,vector<int>& color){
@@ -28,6 +29,7 @@ public:
         return true;
     }
 };
+// DFS
 class Solution {
 public:
     bool dfs(int i,int col,vector<int>&color,vector<vector<int>>& graph){
