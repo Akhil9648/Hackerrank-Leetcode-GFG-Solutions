@@ -1,3 +1,6 @@
+// There will be one more brute force by using two for loops and traversing over all the pairs and take the count of the valid pairs for that i and put them in the answer array Complexity-O(n^2)
+// TLE TC-52
+// Time Complexity-O(m log m + n·m)
 class Solution1 {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
@@ -24,6 +27,8 @@ public:
         return ans;
     }
 };
+// Optimization Binary Search On Answers
+// Time complexity-O(n*m*logm)
 class Solution {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
