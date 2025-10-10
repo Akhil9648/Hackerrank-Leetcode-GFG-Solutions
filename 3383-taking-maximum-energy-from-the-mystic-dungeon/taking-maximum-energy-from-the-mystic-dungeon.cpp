@@ -1,3 +1,24 @@
+// Approach-1 Brute Force Approach Trying Basic recurtion and trying all combinations
+// Failed TC-522
+class Solution1 {
+public:
+    int solve(int i,vector<int>& energy,int k){
+        int n=energy.size();
+        if(i==n) return INT_MIN;
+        int maxi=INT_MIN;
+        int sum=0;
+        for(int j=i;j<n;j+=k){
+            sum+=energy[j];
+        }
+        int b=solve(i+1,energy,k);
+        return max(sum,b);
+    }
+    int maximumEnergy(vector<int>& energy, int k) {
+        return solve(0,energy,k);
+    }
+};
+// Approach-2 Doing DFS on all the possibillities and finding the maximum possiblity among all
+// TC-O(N*K)
 class Solution {
 public:
     int solve(int i,vector<int>& energy,int k,vector<int>& dp){
