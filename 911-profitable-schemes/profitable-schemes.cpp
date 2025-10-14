@@ -1,3 +1,4 @@
+// Approach-1 Memoization TC-O(m⋅n⋅minProfit)
 class Solution1 {
 public:
 int MOD=1e9+7;
@@ -22,6 +23,7 @@ int MOD=1e9+7;
         return ans;
     }
 };
+// Approach-2 Tabulation TC-O(M∗N∗Minprofit)
 class Solution {
 public:
 int MOD=1e9+7;
