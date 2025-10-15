@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int n;
     int solve(vector<int>& nums,int target,vector<int>&dp){
@@ -20,5 +20,23 @@ public:
         sort(nums.begin(),nums.end());
         vector<int>dp(target+1,-1);
         return solve(nums,target,dp);
+    }
+};
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<long long>dp(target+1,0);
+        dp[0]=1;
+        for(int i=1;i<=target;i++){
+        unsigned long long ans=0;
+            for(int j:nums){
+                if(j>i) break;
+                ans+=dp[i-j];
+            }
+            dp[i]=ans;
+        }
+        return (int)dp[target];
     }
 };
