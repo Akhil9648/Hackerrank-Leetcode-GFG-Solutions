@@ -1,3 +1,4 @@
+// Approach-1 Linear Search -O(n*2*k)
 class Solution1 {
 public:
     int maxDistinctElements(vector<int>& nums, int k) {
@@ -13,6 +14,7 @@ public:
         return st.size();
     }
 };
+// Approach-2 Binary Search O(n*log(2k))
 class Solution {
 public:
     int maxDistinctElements(vector<int>& nums, int k) {
