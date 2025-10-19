@@ -1,4 +1,5 @@
-class Solution1 {
+// Approach-1 BFS
+class Solution {
 public:
     string rotate(string s,int b){
         reverse(s.begin(),s.end());
@@ -35,7 +36,8 @@ public:
         return small;
     }
 };
-class Solution {
+// Approach-2 DFS
+class Solution1 {
 public:
     string rotate(string s,int b){
         reverse(s.begin(),s.end());
