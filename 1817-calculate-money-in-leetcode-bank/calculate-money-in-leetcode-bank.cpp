@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int totalMoney(int n) {
         int u=1;
@@ -16,6 +16,16 @@ public:
             u++;
             a=u;
         }
+        return sum;
+    }
+};
+class Solution {
+public:
+    int totalMoney(int n) {
+        int w=n/7;
+        int d=n%7;
+        int sum=7*(w*(w+1)/2+3*w);
+        sum+=(d*(2*(w+1)+(d-1))/2);
         return sum;
     }
 };
