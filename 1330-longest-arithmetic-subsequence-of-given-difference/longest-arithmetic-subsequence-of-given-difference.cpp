@@ -1,3 +1,4 @@
+// Approach-1 Memoization
 class Solution1 {
 public:
 int n,maxi=0;
@@ -23,23 +24,25 @@ int n,maxi=0;
         return maxi;
     }
 };
+// Approach-2 Tabulation
 class Solution {
 public:
     int longestSubsequence(vector<int>& arr, int difference) {
         int n=arr.size();
         vector<int>dp(n,0);
-        unordered_map<int,int>mp;
+        unordered_map<int,int>valuetillnow;
+        // Initialiing a frequency map to store the values of each index of the array
         int maxi=0;
         dp[0]=1;
         for(int i=n-1;i>=0;i--){
-            int nxt=arr[i]+difference;
+            int nextelement=arr[i]+difference;
             int len=1;
-            if(mp.find(nxt)!=mp.end()){
-                len=1+mp[nxt];
+            if(valuetillnow.find(nextelement)!=valuetillnow.end()){
+                len=1+valuetillnow[nextelement]; //Checking the length of each element
             }
             dp[i]=len;
-            mp[arr[i]]=len;
-            maxi=max(maxi,len);
+            valuetillnow[arr[i]]=len;
+            maxi=max(maxi,len); //taking maximum length from the pool of valid length
         }
         return maxi;
     }
