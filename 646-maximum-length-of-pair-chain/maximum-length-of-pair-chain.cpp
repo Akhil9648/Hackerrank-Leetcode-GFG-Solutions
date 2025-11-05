@@ -17,7 +17,7 @@ public:
         return ans;
     }
 };
-class Solution {
+class Solution2 {
 public:
     int n;
     int solve(int i,int prev,vector<vector<int>>& pairs,vector<vector<int>>& dp){
@@ -35,5 +35,23 @@ public:
         sort(pairs.begin(),pairs.end());
         vector<vector<int>>dp(n,vector<int>(n+1,-1));
         return solve(0,-1,pairs,dp);
+    }
+};
+class Solution {
+public:
+    int findLongestChain(vector<vector<int>>& pairs) {
+        int n=pairs.size();
+        sort(pairs.begin(),pairs.end());
+        vector<int>dp(n,1);
+        int count=1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(pairs[i][0]>pairs[j][1]){
+                    dp[i]=max(dp[i],dp[j]+1);
+                    count=max(count,dp[i]);
+                }
+            }
+        }
+        return count;
     }
 };
