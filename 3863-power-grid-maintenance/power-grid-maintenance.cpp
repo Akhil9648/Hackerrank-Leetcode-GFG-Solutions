@@ -1,3 +1,4 @@
+// Approach-1 DFS O(n*(V+E))
 class Solution1 {
 public:
     void dfs(int i,int p,unordered_map<int, vector<int>>& adj,vector<int>& vis,vector<int>& comp,unordered_map<int,set<int>>&mp){
@@ -41,6 +42,7 @@ public:
         return ans;
     }
 };
+// Approach-2 BFS O(n*(V+E))
 class Solution2 {
 public:
     void bfs(int i,int p,unordered_map<int, vector<int>>& adj,vector<int>& vis,vector<int>& comp,unordered_map<int,set<int>>&mp){
@@ -93,6 +95,8 @@ public:
         return ans;
     }
 };
+// Approach-3
+// Optimal Approach DSU 
 class Solution {
 public:
     vector<int>parent;
