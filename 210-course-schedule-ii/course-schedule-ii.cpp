@@ -1,31 +1,30 @@
 class Solution {
 public:
-    vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
-        vector<vector<int>>adj(n);
+    bool dfs(int i,vector<vector<int>>& adj,vector<int>& vis,vector<int>& path,vector<int>& ans){
+        vis[i]=1;
+        path[i]=1;
+        for(auto it:adj[i]){
+            if(!vis[it]){
+                if(dfs(it,adj,vis,path,ans)) return true;
+            }
+            else if(path[it]) return true;
+        }
+        path[i]=0;
+        ans.push_back(i);
+        return false;
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>>adj(numCourses);
         for(auto it:prerequisites){
-            adj[it[1]].push_back(it[0]);
+            adj[it[0]].push_back(it[1]);
         }
-        vector<int>inor(n,0);
-        for(int i=0;i<n;i++){
-            for(int it:adj[i]){
-                inor[it]++;
+        vector<int>ans;
+        vector<int>vis(numCourses,0),path(numCourses,0);
+        for(int i=0;i<numCourses;i++){
+            if(!vis[i]){
+                if(dfs(i,adj,vis,path,ans)) return {};
             }
         }
-        queue<int>q;
-        for(int i=0;i<n;i++){
-            if(inor[i]==0) q.push(i);
-        }
-        vector<int>topo;
-        while(!q.empty()){
-            int a=q.front();
-            q.pop();
-            topo.push_back(a);
-            for(int it:adj[a]){
-                inor[it]--;
-                if(inor[it]==0) q.push(it);
-            }
-        }
-        if(topo.size()==n) return topo;
-        return {};
-    }   
+        return ans;
+    }
 };
