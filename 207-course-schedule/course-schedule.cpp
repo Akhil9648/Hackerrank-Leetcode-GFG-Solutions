@@ -1,31 +1,28 @@
 class Solution {
 public:
+    bool dfs(int i,vector<vector<int>>& adj,vector<int>& vis,vector<int>& path){
+        vis[i]=1;
+        path[i]=1;
+        for(auto it:adj[i]){
+            if(!vis[it]){
+                if(dfs(it,adj,vis,path)) return true;
+            }
+            else if(path[it]) return true;
+        }
+        path[i]=0;
+        return false;
+    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>>adj(numCourses);
         for(auto it:prerequisites){
             adj[it[0]].push_back(it[1]);
         }
-        vector<int>inor(numCourses,0);
+        vector<int>vis(numCourses,0),path(numCourses,0);
         for(int i=0;i<numCourses;i++){
-            for(auto it:adj[i]){
-                inor[it]++;
+            if(!vis[i]){
+                if(dfs(i,adj,vis,path)) return false;
             }
         }
-        queue<int>q;
-        for(int i=0;i<numCourses;i++){
-            if(inor[i]==0) q.push(i);
-        }
-        vector<int>topo;
-        while(!q.empty()){
-            int a=q.front();
-            q.pop();
-            topo.push_back(a);
-            for(auto it:adj[a]){
-                inor[it]--;
-                if(inor[it]==0) q.push(it);
-            }
-        }
-        if(topo.size()==numCourses) return true;
-        return false;
+        return true;
     }
 };
