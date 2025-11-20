@@ -1,3 +1,4 @@
+// Approach-1 TLE
 class Solution1 {
 public:
     int intersectionSizeTwo(vector<vector<int>>& intervals) {
@@ -24,6 +25,7 @@ public:
         return st.size();
     }
 };
+// Approach-2
 class Solution {
 public:
     int intersectionSizeTwo(vector<vector<int>>& intervals) {
