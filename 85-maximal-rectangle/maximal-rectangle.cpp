@@ -1,39 +1,44 @@
 class Solution {
 public:
-    int findmax(vector<int>& arr){
+int m,n;
+    int max_rec_in_hist(vector<int>& arr){
+        int maxi=0;
         stack<int>st;
-        int n=arr.size(),count=0;
-        for(int i=0;i<n;i++){
-            while(!st.empty() && arr[st.top()]>=arr[i]){
-                int e=st.top(); st.pop();
-                int l=st.empty()?-1:st.top();
-                int w=i-l-1;
-                count=max(count,arr[e]*w);
+        for(int i=0;i<m;i++){
+            while(!st.empty() && arr[st.top()]>arr[i]){
+                int ele=st.top();
+                st.pop();
+                int nse=i;
+                int pse=st.empty()?-1:st.top();
+                maxi=max(maxi,arr[ele]*(nse-pse-1));
             }
             st.push(i);
         }
         while(!st.empty()){
-                int e=st.top(); st.pop();
-                int l=st.empty()?-1:st.top();
-                int w=n-l-1;
-                count=max(count,arr[e]*w);
-            }
-        return count;
+            int nse=m;
+            int ele=st.top();
+            st.pop();
+            int pse=st.empty()?-1:st.top();
+            maxi=max(maxi,arr[ele]*(nse-pse-1));
+        }
+        return maxi;
     }
     int maximalRectangle(vector<vector<char>>& matrix) {
-         if (matrix.empty() || matrix.empty()) return 0;
-        int n=matrix.size();
-        int m=matrix[0].size();
-        int count=0;
-        vector<int>arr(m,0);
-       for(int i=0;i<n;i++){
+        n=matrix.size();
+        m=matrix[0].size();
+        int ans=0;
+        vector<int>height(m,0);
+        for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(matrix[i][j]=='0') arr[j]=0;
-                else arr[j]++;
+                if(matrix[i][j]=='1'){
+                    height[j]+=1;
+                }
+                else{
+                    height[j]=0;
+                }
             }
-            int a=findmax(arr);
-            count=max(a,count);
+            ans=max(ans,max_rec_in_hist(height));
         }
-        return count;
+        return ans;
     }
 };
