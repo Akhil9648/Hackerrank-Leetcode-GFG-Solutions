@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int minimumPairRemoval(vector<int>& nums) {
         int n=nums.size();
@@ -22,6 +22,27 @@ public:
         cout<<"\n";
         arr=nums;
         sort(arr.begin(),arr.end());
+        count++;
+        }
+        return count;
+    }
+};
+class Solution {
+public:
+    int minimumPairRemoval(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        while(!is_sorted(nums.begin(),nums.end())){
+        int mini=INT_MAX,ind=-1;
+        for(int i=0;i<nums.size()-1;i++){
+            int a=nums[i]+nums[i+1];
+            if(mini>a){
+                mini=a;
+                ind=i;
+            }
+        }
+        nums[ind]=mini;
+        nums.erase(nums.begin()+ind+1);
         count++;
         }
         return count;
