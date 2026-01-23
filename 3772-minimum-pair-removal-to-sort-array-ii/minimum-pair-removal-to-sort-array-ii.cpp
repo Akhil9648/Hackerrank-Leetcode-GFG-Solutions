@@ -7,14 +7,18 @@ public:
         vector<int>nexxt(n,0),prev(n,0);
         set<pair<ll,int>>st;
         int bp=0;
-        for(int i=0;i<n;i++){
+        // for(int i=0;i<n;i++){
+        //     nexxt[i]=i+1;
+        //     prev[i]=i-1;
+        // }
+        for(int i=0;i<n-1;i++){
             nexxt[i]=i+1;
             prev[i]=i-1;
-        }
-        for(int i=0;i<n-1;i++){
             if(arr[i]>arr[i+1]) bp++;
             st.insert({(arr[i]+arr[i+1]),i});
         }
+        nexxt[n-1]=n;
+        prev[n-1]=n-2;
         int ops=0;
         while(bp>0){
             int first=st.begin()->second;
