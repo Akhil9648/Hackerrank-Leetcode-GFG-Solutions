@@ -1,4 +1,3 @@
-# Write your MySQL query statement below
-SELECT w1.id from Weather as w1 INNER JOIN Weather as w2
-ON DATEDIFF(w1.recordDate,w2.recordDate)=1
-WHERE w1.temperature>w2.temperature
+SELECT W2.id from Weather as W1
+JOIN Weather as W2 ON DATEDIFF(W2.recordDate,W1.recordDate)=1
+WHERE W2.temperature>W1.temperature
