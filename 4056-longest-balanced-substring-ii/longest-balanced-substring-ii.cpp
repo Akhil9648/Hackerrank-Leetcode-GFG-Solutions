@@ -1,94 +1,74 @@
 class Solution {
 public:
-     int helper(string&s, int ch1, int ch2) {
-        int n = s.length();
-        unordered_map<int, int> diffMap;
-        int maxL = 0;
-        int count1 = 0;
-        int count2 = 0;
-
-        for(int i = 0; i < n; i++) {
-            if(s[i] != ch1 && s[i] != ch2) {
-                diffMap.clear();
-                count1 = 0;
-                count2 = 0;
+int n;
+    int helper(char a,char b,string &s){
+        unordered_map<int,int>mp;
+        int maxi=0;
+        int cnta=0,cntb=0;
+        mp[0]=-1;
+        for(int i=0;i<n;i++){
+            if(s[i]==a){
+                cnta++;
+            }
+            else if(s[i]==b){
+                cntb++;
+            }
+            else{
+                cnta=0;
+                cntb=0;
+                mp.clear();
                 continue;
             }
-
-            if(s[i] == ch1)
-                count1++;
-            if(s[i] == ch2)
-                count2++;
-
-            if(count1 == count2) {
-                maxL = max(maxL, count1+count2);
+             if(cnta == cntb) {
+                maxi = max(maxi, cnta+cntb);
             }
-
-            int diff = count1 - count2;
-            if(diffMap.count(diff)) {
-                maxL = max(maxL, i - diffMap[diff]);
-            } else {
-                diffMap[diff] = i;
+            int diff=cnta-cntb;
+            if(mp.find(diff)!=mp.end()){
+                maxi=max(maxi,i-mp[diff]);
             }
+            else mp[diff]=i;
         }
-        
-        return maxL;
+        return maxi;
     }
-
     int longestBalanced(string s) {
-        int n    = s.length();
-        int maxL = 0;
-
-        //Case-1
-        //"aaaa"
-        int count = 1; //s[0]
-        for(int i = 1; i < n; i++) {
-            if(s[i] == s[i-1]) {
-                count++;
-            } else {
-                maxL = max(maxL, count);
-                count = 1;
+        n=s.size();
+        int maxi=1,cnt=1;
+        char curr=s[0];
+        for(int i=1;i<n;i++){
+            if(s[i]==curr){
+                cnt++;
+            }
+            else{
+                curr=s[i];
+                maxi=max(maxi,cnt);
+                cnt=1;
             }
         }
-        maxL = max(maxL, count);
-
-        //Case-2
-        maxL = max(maxL, helper(s, 'a', 'b'));
-        maxL = max(maxL, helper(s, 'a', 'c'));
-        maxL = max(maxL, helper(s, 'b', 'c'));
-
-
-        //Case-3
-        int countA = 0;
-        int countB = 0;
-        int countC = 0;
-        unordered_map<string, int> diffMap;
-
-        for(int i = 0; i < n; i++) {
-            if(s[i] == 'a')
-                countA++;
-            if(s[i] == 'b')
-                countB++;
-            if(s[i] == 'c')
-                countC++;
-
-            if(countA == countB && countA == countC) {
-                maxL = max(maxL, countA+countB+countC);
+        maxi=max(maxi,cnt);
+        int a=helper('a','b',s);
+        maxi=max(maxi,a);
+        a=helper('a','c',s);
+        maxi=max(maxi,a);
+        a=helper('b','c',s);
+        maxi=max(maxi,a);
+        map<pair<int,int>,int>mp;
+        int cnta=0,cntb=0,cntc=0;
+        mp[{0,0}]=-1;
+        for(int i=0;i<n;i++){
+            if(s[i]=='a'){
+                cnta++;
             }
-
-            int diffAB = countA - countB;
-            int diffAC = countA - countC;
-
-            string key = to_string(diffAB) + "_" + to_string(diffAC); //log(n) digits
-
-            if(diffMap.count(key)) {
-                maxL = max(maxL, i - diffMap[key]);
-            } else {
-                diffMap[key] = i;
+            else if(s[i]=='b'){
+                cntb++;
             }
+            else cntc++;
+            int diffa=cnta-cntb;
+            int diffb=cnta-cntc;
+            if(mp.find({diffa,diffb})!=mp.end()){
+                maxi=max(maxi,i-mp[{diffa,diffb}]);
+            }
+            else mp[{diffa,diffb}]=i;
         }
-
-        return maxL;
-
+        return maxi;
     }
 };
