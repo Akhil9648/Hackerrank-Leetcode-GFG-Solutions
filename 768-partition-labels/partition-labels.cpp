@@ -31,10 +31,6 @@ public:
         for(int i=0;i<n;i++){
             mp[s[i]]=i;
         }
-        cout<<n<<endl;
-        for(auto it:mp){
-            cout<<it.first<<" "<<it.second<<endl;
-        }
         vector<int>ans;
         for(int i=0;i<n;i++){
             int maxi=mp[s[i]];
