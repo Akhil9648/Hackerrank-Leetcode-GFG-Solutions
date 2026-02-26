@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int n;
     int solve(int i,int prev,vector<int>& nums,vector<vector<int>>& dp){
@@ -16,5 +16,17 @@ public:
         int maxi=*max_element(nums.begin(),nums.end());
         vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
         return solve(0,-1,nums,dp);
+    }
+};
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int>temp;
+        for(int num:nums){
+            auto it=lower_bound(temp.begin(),temp.end(),num);
+            if(it==temp.end()) temp.push_back(num);
+            else *it=num;
+        }
+        return temp.size();
     }
 };
