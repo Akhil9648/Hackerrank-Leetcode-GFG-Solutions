@@ -18,7 +18,7 @@ public:
         return a;
     }
 };
-class Solution {
+class Solution2 {
 public:
     int numSteps(string s) {
         reverse(s.begin(),s.end());
@@ -39,5 +39,25 @@ public:
             cnt++;
         }
         return cnt;
+    }
+};
+class Solution {
+public:
+    int numSteps(string s) {
+        reverse(s.begin(),s.end());
+        int carry=0,step=0;
+        int n=s.size();
+        int i=0;
+        while(i<n-1){
+            if(s[i]-'0'+carry==1){
+                step+=2;
+                carry=1;
+            }
+            else{
+                step++;
+            }
+            i++;
+        }
+        return step+carry;
     }
 };
