@@ -1,4 +1,4 @@
 # Write your MySQL query statement below
-SELECT E.name as Employee from Employee as E
-JOIN Employee as M on E.managerID=M.id
-WHERE E.salary>M.salary
+SELECT name as Employee FROM Employee E
+WHERE Salary>(Select salary FROM Employee as E1
+            WHERE E1.id=E.managerId)
