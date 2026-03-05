@@ -1,27 +1,27 @@
 class Solution {
 public:
-    bool dfs(int i,vector<vector<int>>& adj,vector<int>& vis,vector<int>& path){
-        vis[i]=1;
-        path[i]=1;
-        for(auto it:adj[i]){
-            if(!vis[it]){
-                if(dfs(it,adj,vis,path)) return true;
+    bool dfs(int i,vector<vector<int>>& adj,vector<int>& vis){
+        vis[i]=-1;
+        for(int node:adj[i]){
+            if(vis[node]==-1) return false;
+            if(vis[node]==0){
+                if(!dfs(node,adj,vis)){
+                    vis[node]=-1;
+                    return false;
+                }
             }
-            else if(path[it]) return true;
         }
-        path[i]=0;
-        return false;
+        vis[i]=1;
+        return true;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>>adj(numCourses);
         for(auto it:prerequisites){
-            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
         }
-        vector<int>vis(numCourses,0),path(numCourses,0);
+        vector<int>vis(numCourses,0);
         for(int i=0;i<numCourses;i++){
-            if(!vis[i]){
-                if(dfs(i,adj,vis,path)) return false;
-            }
+            if(vis[i]==-1 || !dfs(i,adj,vis)) return false;
         }
         return true;
     }
