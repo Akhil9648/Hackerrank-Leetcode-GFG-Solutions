@@ -24,7 +24,7 @@ public:
     }
     int minOperations(string s) {
         int n=s.size();
-        int cnt=min(trya(s,n),tryb(s,n));
-        return cnt;
+        return min(trya(s,n),tryb(s,n));
+        // return cnt;
     }
 };
