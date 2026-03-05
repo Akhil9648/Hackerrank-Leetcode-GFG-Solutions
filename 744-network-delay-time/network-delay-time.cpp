@@ -5,35 +5,30 @@ public:
         for(auto it:times){
             adj[it[0]].push_back({it[1],it[2]});
         }
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        vector<int>vis(n+1,0);
-        pq.push({0,k});
-        int visi=0;
         vector<int>dist(n+1,INT_MAX);
         dist[k]=0;
+        dist[0]=0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        pq.push({0,k});
         while(!pq.empty()){
-            auto p=pq.top();
+            auto it=pq.top();
             pq.pop();
-            int dis=p.first;
-            int node=p.second;
-            if(vis[node]) continue;
-            vis[node]=1;
-            for(auto it:adj[node]){
-                int a=it.first;
-                int b=it.second;
-                if(!vis[a]){
-                    if(dis+b<dist[a]){
-                        dist[a]=dis+b;
-                        pq.push({dist[a],a});
-                    }
+            int wt=it.first;
+            int a=it.second;
+            if(wt > dist[a]) continue;
+            for(auto &i:adj[a]){
+                int des=i.first;
+                int w1=i.second;
+                if(dist[des]>wt+w1){
+                    dist[des]=wt+w1;
+                    pq.push({wt+w1,des});
                 }
             }
         }
-        int ans=0;
-        for(int i=1;i<=n;i++){
-            if(dist[i]==INT_MAX) return -1;
-            ans=max(ans,dist[i]);
+        int maxi=0;
+        for(int i:dist){
+            maxi=max(maxi,i);
         }
-        return ans;
+        return maxi==INT_MAX?-1:maxi;
     }
 };
