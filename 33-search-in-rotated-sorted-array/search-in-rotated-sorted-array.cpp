@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
 public:
     int search(vector<int>& nums, int target) {
         int n=nums.size();
@@ -26,6 +26,31 @@ public:
             }
             else{
                 low=mid+1;
+            }
+        }
+        return -1;
+    }
+};
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n=nums.size();
+        int ans=0;
+        int low=0,high=n-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            else if(nums[low]<=nums[mid]){
+                if(target>=nums[low] && target<=nums[mid]) high=mid-1;
+                else low=mid+1;
+            }
+            else{
+                if(target<nums[low] && target>nums[mid]){
+                    low=mid+1;
+                }
+                else high=mid-1;
             }
         }
         return -1;
