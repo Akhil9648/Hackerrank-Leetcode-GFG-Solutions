@@ -1,22 +1,31 @@
 class Solution {
 public:
-    bool solve(int i,string s,unordered_set<string>st,vector<int>& dp){
-        if(i==s.size()) return true;
+int n;
+    bool solve(int i,string &s,vector<string>& wordDict,vector<int>& dp){
+        if(i>=n) return true;
         if(dp[i]!=-1) return dp[i];
-        for(int j=i;j<s.size();j++){
-            string str=s.substr(i,j-i+1);
-            if(st.find(str)!=st.end()){
-                if(solve(j+1,s,st,dp)) return dp[i]=true;
+        for(auto it:wordDict){
+            if(i+it.size()>n) continue;
+            int flag=0;
+            for(int j=0;j<it.size();j++){
+                if(it[j]!=s[i+j]){
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0){
+                if(solve(i+it.size(),s,wordDict,dp)){
+                    dp[i]=1;
+                    return true;
+                }
             }
         }
-        return dp[i]=false;
+        dp[i]=0;
+        return false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string>st;
-        for(auto se:wordDict){
-            st.insert(se);
-        }
-        vector<int>dp(s.size(),-1);
-        return solve(0,s,st,dp);
+        n=s.size();
+        vector<int>dp(n,-1);
+        return solve(0,s,wordDict,dp);
     }
 };
