@@ -1,44 +1,42 @@
 class Solution {
 public:
+    vector<int>dr={0,1,0,-1};
+    vector<int>dc={1,0,-1,0};
     int orangesRotting(vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
-        vector<vector<int>>visited(n,(vector<int>(m,0)));
-        queue<pair<pair<int,int>,int>>q;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        queue<pair<int,int>>q;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==2){
-                    q.push({{i,j},0});
+                    q.push({i,j});
                 }
             }
         }
-        int tm=0;
-        int dr[4] = {-1, 0, 1, 0};
-        int dc[4] = {0, 1, 0, -1};
         while(!q.empty()){
-            int r=q.front().first.first;
-            int c=q.front().first.second;
-            int t=q.front().second;
-            tm=max(t,tm);
+            auto it=q.front();
+            int r=it.first;
+            int c=it.second;
             q.pop();
-            int flag=0;
             for(int k=0;k<4;k++){
                 int nr=r+dr[k];
                 int nc=c+dc[k];
-                if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==1 && !visited[nr][nc]){
-                    visited[nr][nc]=1;
-                    grid[nr][nc]=2;
-                    q.push({{nr,nc},t+1});
+                if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==1 && !vis[nr][nc]){
+                    q.push({nr,nc});
+                    vis[nr][nc]=vis[r][c]+1;
                 }
             }
         }
+        int ans=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]==1){
+                if(grid[i][j]==1 && vis[i][j]==0){
                     return -1;
                 }
+                ans=max(ans,vis[i][j]);
             }
         }
-        return tm;
+        return ans;
     }
 };
