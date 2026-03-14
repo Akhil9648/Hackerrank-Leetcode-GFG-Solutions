@@ -42,14 +42,25 @@ class Solution {
 public:
     int numTeams(vector<int>& rating) {
         int n=rating.size();
-        int ans=0;
+        vector<int>gr(n,0),le(n,0);
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
-                for(int k=j+1;k<n;k++){
-                    if((rating[i]<rating[j]) && (rating[j]<rating[k])) ans++;
-                    else if((rating[i]>rating[j]) && (rating[j]>rating[k])) ans++;
-                }
+                if(rating[j]>rating[i]) gr[i]++;
             }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(rating[j]<rating[i]) le[i]++;
+            }
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int leftSmaller = le[i];
+            int rightGreater = gr[i];
+            int leftGreater = i - le[i];
+            int rightSmaller = (n-i-1) - gr[i];
+            ans += leftSmaller * rightGreater;
+            ans += leftGreater * rightSmaller;
         }
         return ans;
     }
