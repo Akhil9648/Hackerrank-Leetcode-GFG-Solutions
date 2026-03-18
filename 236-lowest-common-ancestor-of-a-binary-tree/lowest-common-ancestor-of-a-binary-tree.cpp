@@ -9,21 +9,19 @@
  */
 class Solution {
 public:
-    TreeNode * solve(TreeNode* root,TreeNode* p,TreeNode* q){
-        if(!root || root==p || root==q) return root;
-        TreeNode* left=solve(root->left,p,q);
-        TreeNode* right=solve(root->right,p,q);
-        if(left==NULL){
-            return right;
-        }
-        else if(right==NULL){
-            return left;
-        }
-        else{
-            return root;
-        }
+    TreeNode* find(TreeNode* p,TreeNode* q,TreeNode* root,bool &pf,bool &qf){
+        if(!root) return NULL;
+        if(root==p) return root;
+        if(root==q) return root;
+        TreeNode* lr=find(p,q,root->left,pf,qf);
+        TreeNode* rr=find(p,q,root->right,pf,qf);
+        if(lr!=NULL && rr!=NULL) return root;
+        else if(lr!=NULL) return lr;
+        else if(rr!=NULL) return rr;
+        return NULL;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return solve(root,p,q);
+        bool pf=false,qf=false;
+        return find(p,q,root,pf,qf);
     }
 };
