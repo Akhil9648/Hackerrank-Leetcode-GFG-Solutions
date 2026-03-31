@@ -1,32 +1,39 @@
+class Solution1 {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int>ans;
+        sort(p.begin(),p.end());
+        int n=s.size();
+        int m=p.size();
+        for(int i=0;i<n;i++){
+            string a=s.substr(i,m);
+            sort(a.begin(),a.end());
+            if(a==p) ans.push_back(i);
+        }
+        return ans;
+    }
+};
 class Solution {
 public:
-    bool check(unordered_map<char,int>& mp1,unordered_map<char,int>& mp2){
-        for(auto it:mp1){
-            if(!mp2.count(it.first)) return false;
-            if(mp2[it.first]<it.second) return false;
-        }
-        return true;
-    }
     vector<int> findAnagrams(string s, string p) {
-        unordered_map<char,int>mp1,mp2;
-        for(char c:p){
-            mp1[c]++;
-        }
-        int n=s.size();
-        int k=p.size();
-        for(int i=0;i<k;i++){
-            mp2[s[i]]++;
-        }
-        int i=0,j=k;
         vector<int>ans;
-        while(j<n){
-            if(check(mp1,mp2)) ans.push_back(i);
-            mp2[s[i]]--;
-            mp2[s[j]]++;
-            i++;
-            j++;
+        sort(p.begin(),p.end());
+        int n=s.size();
+        int m=p.size();
+        unordered_map<char,int>mp1,mp2;
+        for(auto it:p){
+            mp2[it]++;
         }
-        if(check(mp1,mp2)) ans.push_back(i);
+        int j=0;
+        for(int i=0;i<n;i++){
+            if(i-j>=m){
+                mp1[s[j]]--;
+                if(mp1[s[j]]==0) mp1.erase(s[j]);
+                j++;
+            }
+            mp1[s[i]]++;
+            if(mp1==mp2) ans.push_back(j);
+        }
         return ans;
     }
 };
