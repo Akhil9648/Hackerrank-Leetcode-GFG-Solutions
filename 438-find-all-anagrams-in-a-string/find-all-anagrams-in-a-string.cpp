@@ -17,7 +17,6 @@ class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
         vector<int>ans;
-        sort(p.begin(),p.end());
         int n=s.size();
         int m=p.size();
         unordered_map<char,int>mp1,mp2;
