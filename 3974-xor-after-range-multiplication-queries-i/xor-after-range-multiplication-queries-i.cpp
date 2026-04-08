@@ -12,7 +12,7 @@ public:
             }
         }
         int ans=0;
-        for(auto it:nums){
+        for(int it:nums){
             ans^=it;
         }
         return ans;
