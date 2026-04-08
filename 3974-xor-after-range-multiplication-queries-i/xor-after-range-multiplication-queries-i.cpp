@@ -2,7 +2,7 @@ class Solution {
 public:
     int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
         int MOD=1e9+7;
-        for(auto it:queries){
+        for(const auto &it:queries){
             int l=it[0];
             int r=it[1];
             int k=it[2];
