@@ -1,5 +1,3 @@
 # Write your MySQL query statement below
-WITH cte as (SELECT customer_number,COUNT(order_number) AS NumOrd FROM Orders
-GROUP BY customer_number )
-SELECT customer_number from cte
-WHERE NumOrd=(SELECT max(NumOrd) from cte)
+SELECT customer_number FROM (SELECT COUNT(*) as cnt,customer_number FROM Orders
+GROUP BY customer_number  ORDER BY cnt DESC LIMIT 1) as ptr
