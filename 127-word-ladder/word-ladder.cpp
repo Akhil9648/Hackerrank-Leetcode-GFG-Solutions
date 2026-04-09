@@ -1,21 +1,72 @@
+class Solution1 {
+public:
+int n;
+    int solve(string beginWord,string endWord,unordered_set<string>& st,int q){
+        if(beginWord==endWord) return q+1;
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++){
+            char org=beginWord[i];
+            for(int j=0;j<26;j++){
+                beginWord[i]='a'+j;
+                if(st.count(beginWord)){
+                    st.erase(beginWord);
+                    cout<<beginWord<<" "<<i<<endl;
+                    int a=solve(beginWord,endWord,st,q+1);
+                    ans=min(ans,a);
+                    st.insert(beginWord);
+                }
+            }
+            beginWord[i]=org;
+        }
+        return ans;
+    }
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string>st;
+        for(auto it:wordList){
+            st.insert(it);
+        }
+        n=beginWord.length();
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++){
+            char org=beginWord[i];
+            for(int j=0;j<26;j++){
+                beginWord[i]='a'+j;
+                if(st.count(beginWord)){
+                    st.erase(beginWord);
+                    cout<<beginWord<<" "<<i<<endl;
+                    int a=solve(beginWord,endWord,st,1);
+                    ans=min(ans,a);
+                    st.insert(beginWord);
+                }
+            }
+            beginWord[i]=org;
+        }
+        return ans==INT_MAX?0:ans;
+    }
+};
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_set<string>st(wordList.begin(),wordList.end());
+        unordered_set<string>st;
+        for(auto it:wordList){
+            st.insert(it);
+        }
+        int n=beginWord.length();
+        int ans=INT_MAX;
         queue<pair<string,int>>q;
         q.push({beginWord,1});
-        st.erase(beginWord);
         while(!q.empty()){
-            string wrd=q.front().first;
-            int level=q.front().second;
+            auto it=q.front();
             q.pop();
-            if(wrd==endWord) return level;
-            for(int i=0;i<wrd.size();i++){
+            string wrd=it.first;
+            int dis=it.second;
+            if(wrd==endWord) return dis;
+            for(int i=0;i<n;i++){
                 char org=wrd[i];
-                for(char c='a';c<='z';c++){
-                    wrd[i]=c;
-                    if(st.find(wrd)!=st.end()){
-                        q.push({wrd,level+1});
+                for(int j=0;j<26;j++){
+                    wrd[i]='a'+j;
+                    if(st.count(wrd)){
+                        q.push({wrd,dis+1});
                         st.erase(wrd);
                     }
                 }
