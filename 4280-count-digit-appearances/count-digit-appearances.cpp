@@ -1,17 +1,19 @@
 class Solution {
 public:
-    void extractdig(int n,unordered_map<int,int>& mp){
+    int extractdig(int n,int digit){
+        int cnt=0;
         while(n){
             int d=n%10;
-            mp[d]++;
+            if(d==digit) cnt++;
             n/=10;
         }
+        return cnt;
     }
     int countDigitOccurrences(vector<int>& nums, int digit) {
-        unordered_map<int,int>mp;
+        int ans=0;
         for(auto it:nums){
-            extractdig(it,mp);
+            ans+=extractdig(it,digit);
         }
-        return mp[digit];
+        return ans;
     }
 };
