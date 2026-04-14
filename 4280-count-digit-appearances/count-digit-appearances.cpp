@@ -3,8 +3,7 @@ public:
     int extractdig(int n,int digit){
         int cnt=0;
         while(n){
-            int d=n%10;
-            if(d==digit) cnt++;
+            if(n%10==digit) cnt++;
             n/=10;
         }
         return cnt;
